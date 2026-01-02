@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Tagesschrift&display=swap');
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.input {
+  @apply w-full rounded-lg bg-black/40 border border-white/10
+         px-4 py-3 text-sm text-white placeholder-gray-500
+         focus:outline-none focus:border-purple-500
+         transition backdrop-blur;
+}
+
+.tage {
+  font-family: "Tagesschrift", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+
+@font-face {
+  font-family: "inter";
+  src: url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+}
+
+@layer utilities {
+  .text-inter {
+    font-family: "inter", sans-serif;
+    font-weight: 500;
+  }
+  .text-inter-6 {
+    font-family: "inter", sans-serif;
+    font-weight: 600;
+  }
+  .text-inter-8 {
+    font-family: "inter", sans-serif;
+    font-weight: 800;
+  }
+}

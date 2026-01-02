@@ -1,0 +1,226 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { FaReact, FaNodeJs, FaUsers } from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiMongodb,
+  SiExpress,
+  SiTailwindcss,
+  SiFirebase,
+} from "react-icons/si";
+import { HiCode } from "react-icons/hi";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
+
+/* ===== Framer Motion Variants ===== */
+const card = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 1.0, duration: 1.9, ease: "easeOut" },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 1.0, duration: 1.9, ease: "easeOut" },
+  },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.85 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { delay: 1.0, duration: 1.9, ease: "easeOut" },
+  },
+};
+
+const techStack = [
+  { name: "React.js", icon: <FaReact />, color: "text-cyan-400" },
+  { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+  { name: "Node.js", icon: <FaNodeJs />, color: "text-green-500" },
+  { name: "Express.js", icon: <SiExpress />, color: "text-gray-300" },
+  { name: "MongoDB", icon: <SiMongodb />, color: "text-green-400" },
+  { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "text-sky-400" },
+  { name: "Firebase", icon: <SiFirebase />, color: "text-amber-400" },
+];
+
+const About = () => {
+  return (
+    <section id="about" className=" py-20 pt-28 px-7 mx-auto">
+      {/* Section Title */}
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeUp}
+        className="text-center mb-16"
+      >
+        <h2 className="tage text-4xl md:text-5xl font-bold">
+          <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent ">
+            About Me
+          </span>
+        </h2>
+      </motion.div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Image */}
+        <motion.div
+          variants={scaleIn}
+          className="relative flex justify-center order-2 md:order-1"
+        >
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="relative bg-gradient-to-br from-purple-900 via-black to-slate-900 overflow-visible"
+          >
+            <img
+              src="/About.png"
+              alt="Mamun Mia"
+              className="w-[600px] rounded-xl"
+            />
+
+            <span className="absolute md:-bottom-10 md:-right-10 bottom-0 right-0 w-44 px-4 py-3 rounded-xl bg-purple-500/40 backdrop-blur-md border border-white/20 text-white">
+              <h1 className="text-4xl font-bold">2+</h1>
+              <p className="text-sm">Years Experience</p>
+            </span>
+          </motion.div>
+        </motion.div>
+
+        <div className="order-1 md:order-2">
+          <motion.h2
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="text-4xl md:text-5xl font-bold text-white mb-6"
+          >
+            <span className="text-purple-400">Hi, I’m MD Mamun Mia,</span>
+          </motion.h2>
+
+          <motion.p
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="text-gray-400 leading-relaxed mb-6"
+          >
+            I am a passionate{" "}
+            <span className="text-white font-semibold">
+              MERN Stack Developer
+            </span>{" "}
+            specializing in building clean, scalable, and user-centric web
+            applications using MongoDB, Express.js, React, Node.js, and Next.js.
+            I have hands-on experience with RESTful APIs, authentication,
+            performance optimization, and modern UI development.
+          </motion.p>
+
+          <motion.p
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="text-gray-400 leading-relaxed mb-8"
+          >
+            I enjoy working on scalable full-stack applications,
+            performance-focused interfaces, and data-driven solutions that
+            create real impact.
+          </motion.p>
+
+          {/* Tech Stack */}
+          <motion.h3
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="text-white font-semibold mb-4"
+          >
+            Tech Knowledge
+          </motion.h3>
+
+          <div className="flex flex-wrap gap-3 mb-10">
+            {techStack.map((tech, i) => (
+              <motion.span
+                key={i}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeUp}
+                whileHover={{ scale: 1.1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border-2 border-purple-500/60 text-sm  backdrop-blur justify-center text-purple-400 hover:bg-purple-600 hover:text-white transition shadow-purple-500/50 shadow-2xl hover:shadow-purple-500/80 hover:shadow-[0_0_50px_rgba(168,85,247,1)]"
+
+              >
+                <span className={`text-lg ${tech.color}`}>{tech.icon}</span>
+                {tech.name}
+              </motion.span>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+          >
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}>
+               <StatCard
+              icon={<AiOutlineFundProjectionScreen />}
+              value="17+"
+              label="Projects Completed"
+            />
+            </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}>
+          
+            <StatCard icon={<HiCode />} value="2+ Years" label="Experience" />
+            </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}>
+
+            <StatCard icon={<FaUsers />} value="MERN" label="Stack" />
+            </motion.div>
+           
+
+
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const StatCard = ({ icon, value, label }) => {
+  return (
+    <motion.div
+      variants={fadeUp}
+      whileHover={{ y: -6, scale: 1.05 }}
+      className="rounded-2xl bg-white/5 border border-purple-500/50 py-6 text-center backdrop-blur h-44"
+    >
+      <div className="text-purple-500 text-3xl mb-3 flex justify-center">
+        {icon}
+      </div>
+      <h4 className="text-3xl font-bold text-white">{value}</h4>
+      <p className="text-gray-400 text-sm mt-1">{label}</p>
+    </motion.div>
+  );
+};
+
+export default About;
