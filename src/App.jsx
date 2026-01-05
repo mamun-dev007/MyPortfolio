@@ -12,16 +12,16 @@ const App = () => {
  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 3 সেকেন্ড পর loading বন্ধ হবে
+    // Professional loading experience - 5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
-    return <Loading name="Dev@Mamun" />;
+    return <Loading name="MD Mamun Mia" />;
   }
 
   return (
