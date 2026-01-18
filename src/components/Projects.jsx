@@ -44,7 +44,7 @@ const projects = [
     id: 1,
     title: "AssetVerse Project",
     subtitle: "Corporate Asset Management System",
-    image: "/10.png",
+    image: "/project11.png",
     category: "Full Stack",
     description:
       "A comprehensive asset management system for corporate environments with role-based access control, real-time tracking, and advanced reporting features.",
@@ -68,10 +68,6 @@ const projects = [
     githubClient: "https://github.com/mamun-dev007/AssetVerse-client-site.git",
     githubServer:
       "https://github.com/mamun-dev007/assets-varse-server-side.git",
-    credentials: {
-      email: "adminmamun@gmail.com",
-      password: "Admin.1",
-    },
   },
   {
     id: 2,
@@ -291,8 +287,8 @@ const Projects = () => {
                         ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50"
                         : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                       : isDarkMode
-                      ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
-                      : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                        ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
+                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   {cat}

@@ -289,7 +289,7 @@ const Navbar = () => {
                   : "bg-white/95 backdrop-blur-lg border border-gray-200"
               }`}
             >
-              <div className="flex flex-col items-center py-10 gap-10">
+              <div className="flex flex-col items-center py-10 gap-6">
                 {[
                   { id: "home", label: "Home" },
                   { id: "about", label: "About" },
@@ -315,8 +315,8 @@ const Navbar = () => {
                           ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25"
                           : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25"
                         : isDarkMode
-                        ? "bg-gray-800/50 text-gray-300 hover:bg-gray-700/70 border border-gray-700 hover:text-white"
-                        : "bg-white text-gray-600 hover:bg-gray-50 bay-800"
+                        ? "bg-gray-800/50 text-gray-300 hover:bg-gradient-to-r from-purple-600 to-pink-600  border border-gray-700 hover:text-white"
+                        : "bg-white text-gray-600 hover:bg-gradient-to-r from-purple-600 to-pink-600 hover:text-white border border-gray-400"
                     }`}ext-grover:tadow-sm h sher-gray-200rdder boor
                   >
                     {item.label}

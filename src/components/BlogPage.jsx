@@ -110,7 +110,7 @@ const blogs = [
     title: "Advanced CSS Grid Layouts and Techniques",
     excerpt:
       "Dive deep into CSS Grid and discover advanced layout techniques that will revolutionize your web design workflow. Create complex, responsive layouts with ease.",
-    image: "/10.png",
+    image: "/image.png",
     category: "UI/UX Design",
     date: "December 20, 2024",
     readTime: "10 min read",
@@ -127,7 +127,7 @@ const blogs = [
     title: "Mobile App Development with React Native",
     excerpt:
       "Create powerful cross-platform mobile applications using React Native. Learn navigation, state management, and native module integration for iOS and Android.",
-    image: "/9.png",
+    image: "/7.png",
     category: "Mobile Apps",
     date: "December 15, 2024",
     readTime: "14 min read",
@@ -305,8 +305,8 @@ const BlogPage = () => {
                         ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50"
                         : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                       : isDarkMode
-                      ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
-                      : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                        ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
+                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   {cat}

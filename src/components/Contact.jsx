@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 // Custom hook to detect theme
 const useTheme = () => {
@@ -74,33 +74,43 @@ const item = {
 
 const Contact = () => {
   const isDarkMode = useTheme();
+  const formRef = useRef(null);
+  const [status, setStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
+    setStatus("");
+    setIsLoading(true);
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log(data);
-      toast.success("Message sent successfully! 🚀", {
-        style: {
-          background: isDarkMode ? '#1f2937' : '#ffffff',
-          color: isDarkMode ? '#ffffff' : '#1f2937',
-          border: isDarkMode ? '1px solid #374151' : '1px solid #e5e7eb',
+      const response = await emailjs.sendForm(
+        "service_1gchnxr",
+        "template_ms08f14",
+        formRef.current,
+        {
+          publicKey: "DOUeG9A6xbPDWrUfY", // ← Must be inside object
         },
-      });
+      );
+
+      console.log("Success:", response.status, response.text);
+      setStatus("Message sent successfully!");
       reset();
-    } catch {
-      toast.error("Something went wrong! Please try again.", {
-        style: {
-          background: isDarkMode ? '#1f2937' : '#ffffff',
-          color: isDarkMode ? '#ffffff' : '#1f2937',
-          border: isDarkMode ? '1px solid #374151' : '1px solid #e5e7eb',
-        },
-      });
+    } catch (error) {
+      console.error("EmailJS full error:", error);
+      // Log detailed response if available
+      if (error && error.text) {
+        console.error("Server response:", error.text);
+      }
+      setStatus("Failed to send message. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,8 +118,8 @@ const Contact = () => {
     <section
       id="contact"
       className={`py-20 pt-28 px-4 sm:px-6 lg:px-8 transition-colors duration-500 ${
-        isDarkMode 
-          ? "bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900" 
+        isDarkMode
+          ? "bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900"
           : "bg-gradient-to-br from-gray-50 via-purple-50/50 to-gray-50"
       }`}
     >
@@ -121,23 +131,25 @@ const Contact = () => {
         className="max-w-7xl mx-auto"
       >
         {/* Section Title */}
-        <motion.div
-          variants={item}
-          className="text-center mb-16"
-        >
-          <h2 className="tage text-4xl md:text-5xl font-bold">
-            <span className={`bg-gradient-to-r bg-clip-text text-transparent ${
-              isDarkMode 
-                ? "from-purple-400 to-pink-400" 
-                : "from-purple-600 to-pink-600"
-            }`}>
+        <motion.div variants={item} className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold">
+            <span
+              className={`bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode
+                  ? "from-purple-400 to-pink-400"
+                  : "from-purple-600 to-pink-600"
+              }`}
+            >
               Get In Touch
             </span>
           </h2>
-          <p className={`mt-4 max-w-2xl mx-auto ${
-            isDarkMode ? "text-gray-400" : "text-gray-600"
-          }`}>
-            Let's work together to bring your ideas to life. I'm always excited to discuss new projects and opportunities.
+          <p
+            className={`mt-4 max-w-2xl mx-auto ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            Let's work together to bring your ideas to life. I'm always excited
+            to discuss new projects and opportunities.
           </p>
         </motion.div>
 
@@ -174,13 +186,16 @@ const Contact = () => {
             </motion.p>
 
             <motion.form
+              ref={formRef}
               onSubmit={handleSubmit(onSubmit)}
               className="space-y-4"
+              noValidate
             >
               {/* Name */}
               <motion.div variants={item}>
                 <input
                   type="text"
+                  name="name"
                   placeholder="Your Name"
                   className={`
                     w-full rounded-xl border px-4 py-3 text-sm
@@ -204,6 +219,7 @@ const Contact = () => {
               {/* Email */}
               <motion.div variants={item}>
                 <input
+                  name="email"
                   type="email"
                   placeholder="Email Address"
                   className={`
@@ -219,8 +235,8 @@ const Contact = () => {
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
-                      value: /^\S+@\S+$/i,
-                      message: "Enter a valid email",
+                      value: /^\S+@\S+\.\S+$/i,
+                      message: "Please enter a valid email address",
                     },
                   })}
                 />
@@ -261,36 +277,46 @@ const Contact = () => {
                 )}
               </motion.div>
 
-              {/* Button */}
+              {/* Status message */}
+              {status && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`text-center text-sm font-medium mt-2 ${
+                    status.includes("success")
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {status}
+                </motion.p>
+              )}
+
+              {/* Submit Button */}
               <motion.button
                 variants={item}
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isLoading}
                 whileTap={{ scale: 0.96 }}
                 className={`
                   w-full mt-6 py-3 px-6 rounded-xl font-semibold
-                  transition-all duration-300 disabled:opacity-50
-                  ${
-                    isDarkMode
-                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25"
-                      : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25"
-                  }
+                  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+                  bg-gradient-to-r from-purple-600 to-pink-600 text-white
+                  hover:from-purple-700 hover:to-pink-700
+                  shadow-lg shadow-purple-500/25
                 `}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting || isLoading ? "Sending..." : "Send Message"}
               </motion.button>
             </motion.form>
           </motion.div>
 
           {/* RIGHT – INFO */}
-          <motion.div
-            variants={fadeRight}
-            className="space-y-6 sm:space-y-8"
-          >
-            <ContactItem 
-              icon={<FiPhone />} 
-              title="Phone" 
-              value="+880 1602500633" 
+          <motion.div variants={fadeRight} className="space-y-6 sm:space-y-8">
+            <ContactItem
+              icon={<FiPhone />}
+              title="Phone"
+              value="+880 1602500633"
               isDarkMode={isDarkMode}
             />
             <ContactItem
@@ -318,22 +344,28 @@ const ContactItem = ({ icon, title, value, isDarkMode }) => (
     whileHover={{ x: 6 }}
     className="flex items-start gap-4"
   >
-    <div className={`p-3 rounded-full text-lg ${
-      isDarkMode 
-        ? "bg-purple-500/20 text-purple-400" 
-        : "bg-purple-100 text-purple-600"
-    }`}>
+    <div
+      className={`p-3 rounded-full text-lg ${
+        isDarkMode
+          ? "bg-purple-500/20 text-purple-400"
+          : "bg-purple-100 text-purple-600"
+      }`}
+    >
       {icon}
     </div>
     <div>
-      <p className={`text-xs sm:text-sm ${
-        isDarkMode ? "text-gray-400" : "text-gray-600"
-      }`}>
+      <p
+        className={`text-xs sm:text-sm ${
+          isDarkMode ? "text-gray-400" : "text-gray-600"
+        }`}
+      >
         {title}
       </p>
-      <p className={`font-medium text-sm sm:text-base ${
-        isDarkMode ? "text-white" : "text-gray-800"
-      }`}>
+      <p
+        className={`font-medium text-sm sm:text-base ${
+          isDarkMode ? "text-white" : "text-gray-800"
+        }`}
+      >
         {value}
       </p>
     </div>

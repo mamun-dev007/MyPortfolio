@@ -47,7 +47,7 @@ const AnimatedParticles = ({ isDarkMode }) => {
         moveX: i % 2 === 0 ? 25 : -25,
         moveY: i % 3 === 0 ? 25 : -25,
       })),
-    []
+    [],
   );
 
   return (
@@ -94,7 +94,7 @@ const GlowingOrbs = ({ isDarkMode }) => {
         delay: (i * 0.5) % 3,
         duration: 4 + (i % 3),
       })),
-    []
+    [],
   );
 
   return (
@@ -303,7 +303,7 @@ const Banner = () => {
             >
               {/* Download CV */}
               <motion.a
-                href="/Resume.pdf"
+                href="/resume (2).pdf"
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -341,108 +341,62 @@ const Banner = () => {
 
           {/* Right Image - Now more subtle since background uses same image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.15 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.0, duration: 1.9 }}
             className="flex justify-center lg:justify-end relative"
           >
-            {/* Animated glow around image */}
+            {/* === Animated purple background shape – moves constantly === */}
             <motion.div
-              className={`absolute inset-0 rounded-full blur-3xl  ${
+              className={`absolute top-16 rounded-full h-60 w-60 hidden md:inline-block ${
                 isDarkMode
-                  ? "bg-purple-500/30 shadow-purple-500/40"
-                  : "bg-purple-300/40 shadow-purple-300/50"
+                  ? "bg-purple-600/25 shadow-purple-600"
+                  : "bg-purple-900 shadow-purple-600"
               }`}
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
+                scale: [],
+                x: [0, 18, -50, 10, 0],
+                y: [0, 10, 14, -6, 0],
+                opacity: [0.4, 0.5, 0.5, 0.7, 0.4],
               }}
               transition={{
-                duration: 3,
+                duration: 12, // long & smooth → feels organic
                 repeat: Infinity,
+                repeatType: "mirror", // smooth back & forth
                 ease: "easeInOut",
               }}
             />
 
             <motion.div
-              whileHover={{ scale: 1.0 }}
-              transition={{ duration: 0.3 }}
-              className="relative  md:w-80  lg:w-76 lg:h-[32rem] hidden md:block"
+              whileHover={{ scale: 1.02 }} // subtle hover only
+              transition={{ duration: 0.4 }}
+              className="relative md:w-80 lg:w-76 lg:h-[32rem] hidden md:block z-10"
             >
-              {/* Pulsing border effect */}
-              <motion.div
-                className={`absolute inset-0 rounded-3xl  ${
-                  isDarkMode ? "border-purple-400/60" : "border-purple-500/70"
-                }`}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
               <div
-                className={`relative w-full h-[400px] rounded-3xl overflow-hidden mt-10 border backdrop-blur-sm ${
+                className={`relative w-full h-[400px] rounded-3xl overflow-hidden mt-10 backdrop-blur-sm ${
                   isDarkMode
-                    ? "bg-slate-800/80 border-purple-500/50 shadow-2xl "
-                    : "bg-white/70"
+                    ? " shadow-2xl border border-purple-500/20"
+                    : " shadow-xl border border-purple-400/30"
                 }`}
               >
                 <img
                   src="/mamun1.png"
                   alt="Mamun Mia"
-                  className="w-full h-full object-cover opacity-90"
+                  className="w-full h-full object-cover opacity-95 pointer-events-none"
                 />
 
-                {/* Enhanced sparkle effects on image */}
+                {/* Keep your sparkle effects if desired – they are independent */}
                 <motion.div
                   className="absolute top-10 right-10 w-3 h-3 bg-white rounded-full shadow-lg shadow-white/50"
-                  animate={{
-                    scale: [0, 1.2, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: 0.5,
-                  }}
+                  animate={{ scale: [0, 1.3, 0], opacity: [0, 1, 0] }}
+                  transition={{ duration: 1.6, repeat: Infinity, delay: 0.4 }}
                 />
                 <motion.div
                   className="absolute bottom-20 left-10 w-2 h-2 bg-purple-300 rounded-full shadow-lg shadow-purple-300/50"
-                  animate={{
-                    scale: [0, 1.5, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: 1,
-                  }}
+                  animate={{ scale: [0, 1.6, 0], opacity: [0, 1, 0] }}
+                  transition={{ duration: 2.1, repeat: Infinity, delay: 1.1 }}
                 />
-                <motion.div
-                  className="absolute top-1/2 left-5 w-2 h-2 bg-pink-300 rounded-full shadow-lg shadow-pink-300/50"
-                  animate={{
-                    scale: [0, 1.2, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 1.8,
-                    repeat: Infinity,
-                    delay: 1.5,
-                  }}
-                />
-                <motion.div
-                  className="absolute top-20 left-1/2 w-1.5 h-1.5 bg-cyan-300 rounded-full shadow-lg shadow-cyan-300/50"
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2.2,
-                    repeat: Infinity,
-                    delay: 2,
-                  }}
-                />
+                {/* ... other sparkles ... */}
               </div>
             </motion.div>
           </motion.div>
