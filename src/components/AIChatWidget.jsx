@@ -2,6 +2,59 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
+// লোকাল পোর্টফোলিও ডেটাবেস
+const portfolioKnowledge = [
+  {
+    keywords: ["নাম", "name", "কে তুমি", "who are you", "পরিচয়"],
+    answer:
+      "আমি MamunAI, মামুনের পার্সোনাল এআই অ্যাসিস্ট্যান্ট। আমি মামুনের পোর্টফোলিও সম্পর্কে আপনাকে সাহায্য করতে পারি।",
+  },
+  {
+    keywords: ["দক্ষতা", "স্কিল", "skills", "skill", "পারি", "know", "tech"],
+    answer:
+      "মামুনের মূল দক্ষতাগুলো হলো: React.js, Next.js, JavaScript, Tailwind CSS এবং Node.js। এছাড়া তিনি ফ্রন্টএন্ড ডিজাইনে বেশ দক্ষ।",
+  },
+  {
+    keywords: ["প্রজেক্ট", "project", "projects", "কাজ", "work", "portfolio"],
+    answer:
+      "মামুন বেশ কিছু চমৎকার প্রজেক্ট তৈরি করেছেন। এর মধ্যে ই-কমার্স ওয়েবসাইট, পোর্টফোলিও সাইট এবং এআই চ্যাটবট অন্যতম। আপনি কি কোনো নির্দিষ্ট প্রজেক্ট সম্পর্কে জানতে চান?",
+  },
+  {
+    keywords: ["যোগাযোগ", "contact", "email", "ইমেইল", "ফোন", "hire", "হায়ার"],
+    answer:
+      "আপনি মামুনের সাথে ইমেইলে যোগাযোগ করতে পারেন: example@email.com অথবা তার LinkedIn প্রোফাইলে মেসেজ দিতে পারেন।",
+  },
+  {
+    keywords: ["অভিজ্ঞতা", "experience", "চাকরি", "job"],
+    answer:
+      "মামুন একজন প্যাশনেট ওয়েব ডেভেলপার হিসেবে গত ২ বছর ধরে কাজ করছেন। তিনি বিভিন্ন ক্লায়েন্টের জন্য রেস্পন্সিভ ওয়েবসাইট বানিয়েছেন।",
+  },
+  {
+    keywords: ["hi", "hello", "হাই", "হ্যালো", "নমস্কার", "সালাম"],
+    answer:
+      "হ্যালো! আমি কিভাবে আপনাকে সাহায্য করতে পারি? আপনি মামুনের দক্ষতা, প্রজেক্ট বা যোগাযোগের মাধ্যম সম্পর্কে জিজ্ঞাসা করতে পারেন।",
+  },
+];
+
+// ইউজারের ইনপুট থেকে উত্তর খুঁজে বের করার লোকাল ফাংশন
+const generateLocalResponse = (input) => {
+  const lowerInput = input.toLowerCase();
+
+  for (const item of portfolioKnowledge) {
+    // যদি ইনপুটের মধ্যে কোনো কি-ওয়ার্ড মিলে যায়
+    if (
+      item.keywords.some((keyword) =>
+        lowerInput.includes(keyword.toLowerCase()),
+      )
+    ) {
+      return item.answer;
+    }
+  }
+
+  // যদি কোনো কি-ওয়ার্ড না মিলে
+  return "দুঃখিত, আমি আপনার প্রশ্নটি ঠিক বুঝতে পারিনি। আপনি কি মামুনের 'দক্ষতা', 'প্রজেক্ট' বা 'যোগাযোগ' সম্পর্কে জানতে চাচ্ছেন?";
+};
+
 const AIChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -15,7 +68,6 @@ const AIChatWidget = () => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Initialize theme detection (dark/light mode অনুযায়ী স্টাইল বদলাতে)
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme ? savedTheme === "dark" : true;
@@ -32,7 +84,6 @@ const AIChatWidget = () => {
     return () => observer.disconnect();
   }, []);
 
-  // নতুন মেসেজ এলে অটো স্ক্রল নিচে
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
@@ -47,38 +98,12 @@ const AIChatWidget = () => {
     setInput("");
     setLoading(true);
 
-    try {
-      const response = await fetch("/api/ask-mamun", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: trimmed,
-          // শেষ কয়েকটা মেসেজ history হিসেবে পাঠানো হচ্ছে (context রাখতে)
-          history: newMessages.slice(-8, -1),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) throw new Error(data.error || "Request failed");
-
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply },
-      ]);
-    } catch (error) {
-      console.error(error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "দুঃখিত, এই মুহূর্তে উত্তর দিতে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন।",
-        },
-      ]);
-    } finally {
+    // লোকাল এআই রেসপন্স সিমুলেট করা হচ্ছে (একটু দেরি করে উত্তর আসবে, যাতে রিয়েল মনে হয়)
+    setTimeout(() => {
+      const aiReply = generateLocalResponse(trimmed);
+      setMessages((prev) => [...prev, { role: "assistant", content: aiReply }]);
       setLoading(false);
-    }
+    }, 1000); // ১ সেকেন্ড পর উত্তর আসবে
   };
 
   const handleKeyDown = (e) => {
