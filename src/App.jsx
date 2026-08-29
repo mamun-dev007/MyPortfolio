@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
-
+import AIChatWidget from "./components/AIChatWidget";
 
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
     // Professional loading experience - 5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -33,7 +33,7 @@ const App = () => {
       </main>
 
       <Footer />
-
+     <AIChatWidget/>
       <Toaster
         position="top-right"
         toastOptions={{

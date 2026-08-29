@@ -95,7 +95,7 @@ const AIChatWidget = () => {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/40 hover:shadow-purple-500/60 transition-shadow"
+        className="fixed bottom-22 right-9 z-[60] w-11 h-11 rounded-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/40 hover:shadow-purple-500/60 transition-shadow"
         aria-label="Open AI Assistant"
       >
         <AnimatePresence mode="wait">
@@ -131,7 +131,7 @@ const AIChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className={`fixed bottom-24 right-6 z-[60] w-[90vw] max-w-sm h-[70vh] max-h-[520px] rounded-2xl shadow-2xl flex flex-col overflow-hidden border ${
+            className={`fixed bottom-34 right-6 z-[60] w-[90vw] max-w-sm h-[70vh] max-h-[520px] rounded-2xl shadow-2xl flex flex-col overflow-hidden border ${
               isDarkMode
                 ? "bg-gray-900 border-gray-700"
                 : "bg-white border-gray-200"
