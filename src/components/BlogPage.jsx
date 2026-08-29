@@ -160,23 +160,23 @@ const blogs = [
 
 /* ===== FRAMER MOTION VARIANTS ===== */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { delay: 1.0, duration: 1.5, ease: "easeOut" },
+    transition: { delay: 0.5, duration: 0.5, ease: "easeOut" },
   },
 };
 
 const cardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 20, scale: 1.0 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: 1.0,
-      duration: 1.5,
+      delay: 0.5,
+      duration: 0.5,
       ease: "easeOut",
     },
   },

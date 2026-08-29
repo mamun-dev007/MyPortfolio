@@ -170,23 +170,23 @@ const projects = [
 
 /* ===== FRAMER MOTION VARIANTS ===== */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { delay: 1.0, duration: 1.5, ease: "easeOut" },
+    transition: { delay: 0.5, duration: 0.5, ease: "easeOut" },
   },
 };
 
 const cardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 20, scale: 1 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: 1.0,
-      duration: 1.5,
+      delay: 0.5,
+      duration: 0.5,
       ease: "easeOut",
     },
   },
@@ -207,11 +207,14 @@ const Projects = () => {
   const filtered =
     active === "All" ? projects : projects.filter((p) => p.category === active);
 
+  const featured = filtered[0];
+  const rest = filtered.slice(1);
+
   const onSubmit = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log("Project inquiry:", { ...data, project: selected?.title });
-      toast.success(`Message sent about ${selected?.title}! 🚀`, {
+      toast.success("Message sent about " + selected?.title + "!", {
         style: {
           background: isDarkMode ? "#1f2937" : "#ffffff",
           color: isDarkMode ? "#ffffff" : "#1f2937",
@@ -230,6 +233,10 @@ const Projects = () => {
     }
   };
 
+  // Small helper to render a project-slug style placeholder label
+  const slugify = (title) =>
+    "// " + title.toLowerCase().replace(/[^a-z0-9]+/g, "");
+
   return (
     <section
       id="project"
@@ -237,74 +244,195 @@ const Projects = () => {
         isDarkMode ? "bg-transparent" : "bg-gray-50/50"
       }`}
     >
-      <motion.div viewport={{ once: true }} className="max-w-7xl mx-auto">
+      <motion.div viewport={{ once: true }} className="max-w-7xl mx-auto text-center">
         {/* ===== HEADER ===== */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp}
-          className="text-center mb-16"
+          className="mb-14"
         >
-          <h2 className="tage text-4xl md:text-5xl font-bold">
+          <div className="flex items-center text-center gap-2 mb-4 mx-auto">
+           
             <span
-              className={`bg-gradient-to-r bg-clip-text text-transparent ${
+               className={`bg-gradient-to-r bg-clip-text text-transparent mx-auto ${
                 isDarkMode
                   ? "from-purple-400 to-pink-400"
                   : "from-purple-600 to-pink-600"
               }`}
             >
-              My Recent Works
+              Featured Projects
             </span>
+          </div>
+
+          <h2
+            className={`tage text-4xl font-bold mb-3
+              bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode
+                  ? "from-purple-400 to-pink-400"
+                  : "from-purple-600 to-pink-600"
+              }`}
+          >
+            Things I&apos;ve shipped
           </h2>
+
           <p
-            className={`mt-4 max-w-2xl mx-auto ${
+            className={`max-w-2xl text-center mx-auto ${
               isDarkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            Explore my latest projects showcasing modern web development and
-            creative solutions.
+            A selection of full-stack products, from marketplaces to habit
+            trackers.
           </p>
 
           {/* Filters */}
-          <div className="flex justify-center mt-8">
-            <div
-              className={`flex flex-wrap gap-2 p-2 rounded-full backdrop-blur border ${
-                isDarkMode
-                  ? "bg-gray-800/50 border-gray-700"
-                  : "bg-white/80 border-gray-200 shadow-sm"
-              }`}
-            >
-              {categories.map((cat) => (
-                <motion.button
-                  key={cat}
-                  onClick={() => setActive(cat)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-4 py-2 text-sm rounded-full font-medium transition-all duration-300 ${
-                    active === cat
-                      ? isDarkMode
-                        ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50"
-                        : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
-                      : isDarkMode
-                        ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
-                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-                  }`}
-                >
-                  {cat}
-                </motion.button>
-              ))}
-            </div>
+          <div className="flex justify-center flex-wrap gap-2 mt-18 gap-5 ">
+            {categories.map((cat) => (
+              <motion.button
+                key={cat}
+                onClick={() => setActive(cat)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 py-2 text-md rounded-full font-medium border transition-all duration-300  ${
+                  active === cat
+                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white border-transparent shadow-lg shadow-purple-500/25"
+                    : isDarkMode
+                    ? "text-gray-300 border-gray-700 hover:border-gray-500"
+                    : "text-gray-600 border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {cat}
+              </motion.button>
+            ))}
           </div>
         </motion.div>
 
-        {/* ===== PROJECT GRID ===== */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        >
+        {/* ===== FEATURED PROJECT ===== */}
+        {featured && (
+          <motion.div
+            layout
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={cardVariant}
+            onClick={() => setSelected(featured)}
+            className={
+              "grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden border cursor-pointer mb-6 transition-all duration-500 " +
+              (isDarkMode
+                ? "bg-gray-900/60 border-gray-800 hover:border-purple-500/40"
+                : "bg-white border-gray-200 hover:border-purple-400/50 shadow-sm hover:shadow-xl")
+            }
+          >
+            {/* Left: image / code-style placeholder */}
+            <div
+              className={
+                "relative min-h-[220px] lg:min-h-[320px] flex items-center justify-center overflow-hidden " +
+                (isDarkMode ? "bg-black/40" : "bg-gray-100")
+              }
+            >
+              <img
+                src={featured.image}
+                alt={featured.title}
+                className={
+                  "absolute inset-0 w-full h-full object-cover " +
+                  (isDarkMode ? "opacity-60" : "opacity-100")
+                }
+              />
+              {isDarkMode && (
+                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-transparent" />
+              )}
+            </div>
+
+            {/* Right: content */}
+            <div className="p-6 sm:p-8 flex flex-col justify-center">
+              <span
+                className={
+                  "inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest mb-3 " +
+                  (isDarkMode ? "text-purple-400" : "text-purple-600")
+                }
+              >
+                Featured Project
+              </span>
+
+              <h3
+                className={
+                  "text-2xl sm:text-3xl font-bold mb-1 " +
+                  (isDarkMode ? "text-white" : "text-gray-900")
+                }
+              >
+                {featured.title}
+              </h3>
+
+              <p
+                className={
+                  "text-sm mb-4 " + (isDarkMode ? "text-gray-500" : "text-gray-500")
+                }
+              >
+                {featured.subtitle}
+              </p>
+
+              <p
+                className={
+                  "font-mono text-xs mb-4 " +
+                  (isDarkMode ? "text-gray-500" : "text-gray-500")
+                }
+              >
+                {featured.technologies.join(" | ")}
+              </p>
+
+              <p
+                className={
+                  "text-sm leading-relaxed mb-6 " +
+                  (isDarkMode ? "text-gray-400" : "text-gray-600")
+                }
+              >
+                {featured.description}
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                {featured.liveLink && featured.liveLink !== "#" && (
+                  <a
+                    href={featured.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105"
+                  >
+                    Live Demo
+                  </a>
+                )}
+                {featured.githubClient && featured.githubClient !== "#" && (
+                  <a
+                    href={featured.githubClient}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className={
+                      "px-5 py-2.5 rounded-full text-sm font-semibold border transition-transform hover:scale-105 " +
+                      (isDarkMode
+                        ? "border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-purple-500"
+                        : "border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-purple-400")
+                    }
+                  >
+                    GitHub
+                  </a>
+                )}
+                <button
+                  onClick={() => setSelected(featured)}
+                  className="px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105"
+                >
+                  Case Study
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ===== REST PROJECTS GRID ===== */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <AnimatePresence>
-            {filtered.map((project) => (
+            {rest.map((project, index) => (
               <motion.div
                 key={project.id}
                 layout
@@ -312,90 +440,116 @@ const Projects = () => {
                 whileInView="show"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={cardVariant}
-                whileHover={{ y: -8, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -6 }}
                 onClick={() => setSelected(project)}
-                className={`group cursor-pointer relative rounded-2xl overflow-hidden border transition-all duration-500 ${
+                className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-500 ${
                   isDarkMode
-                    ? "bg-gray-800/50 border-gray-700 hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]"
-                    : "bg-white border-gray-200 hover:border-purple-300/50 shadow-sm hover:shadow-xl hover:shadow-purple-500/10"
+                    ? "bg-gray-900/60 border-gray-800 hover:border-purple-500/40"
+                    : "bg-white border-gray-200 hover:border-purple-400/50 shadow-sm hover:shadow-lg"
                 }`}
               >
-                {/* Image */}
-                <div className="relative overflow-hidden">
+                {/* Placeholder image area with slug text */}
+                <div
+                  className={`relative h-40 sm:h-48 flex items-center justify-center overflow-hidden ${
+                    isDarkMode ? "bg-black/40" : "bg-gray-100"
+                  }`}
+                >
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-48 sm:h-56 object-cover transition duration-500 group-hover:scale-110"
+                    className={
+                      "absolute inset-0 w-full h-full object-cover transition-opacity duration-500 " +
+                      (isDarkMode
+                        ? "opacity-40 group-hover:opacity-60"
+                        : "opacity-100")
+                    }
                   />
-
-                  {/* Overlay */}
-                  <div
-                    className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${
-                      isDarkMode
-                        ? "bg-gradient-to-t from-black/80 via-black/30 to-transparent"
-                        : "bg-gradient-to-t from-gray-900/80 via-gray-900/30 to-transparent"
-                    }`}
-                  />
-
-                  {/* Badge */}
-                  {project.badge && (
-                    <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-xs text-white font-medium">
-                      {project.badge}
+                  {isDarkMode && (
+                    <span className="relative z-10 font-mono text-xs text-gray-500">
+                      {slugify(project.title)}
                     </span>
                   )}
-
-                  {/* Hover Content */}
-                  <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-lg font-bold text-white mb-1">
-                          {project.title}
-                        </h3>
-                        <p className="text-white/80 text-sm">
-                          {project.subtitle}
-                        </p>
-                      </div>
-                      <FiArrowUpRight className="text-white text-xl" />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        isDarkMode
-                          ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                          : "bg-purple-100 text-purple-600 border border-purple-200"
-                      }`}
-                    >
-                      {project.category}
-                    </span>
-                  </div>
+                <div className="p-5">
+                  <span
+                    className={`inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-widest mb-2 ${
+                      isDarkMode ? "text-purple-400" : "text-purple-600"
+                    }`}
+                  >
+                    {"Project " + String(index + 2).padStart(2, "0")}
+                  </span>
 
                   <h3
-                    className={`text-xl font-bold mb-2 ${
-                      isDarkMode ? "text-white" : "text-gray-800"
+                    className={`text-lg font-bold mb-1 ${
+                      isDarkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
                     {project.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed ${
-                      isDarkMode ? "text-gray-400" : "text-gray-600"
+                    className={`text-sm mb-2 ${
+                      isDarkMode ? "text-gray-500" : "text-gray-500"
                     }`}
                   >
                     {project.subtitle}
                   </p>
+
+                  <p
+                    className={`font-mono text-[11px] mb-4 ${
+                      isDarkMode ? "text-gray-600" : "text-gray-400"
+                    }`}
+                  >
+                    {project.technologies.join(" | ")}
+                  </p>
+
+                  <div className="flex items-center gap-3 text-sm">
+                    {project.liveLink && project.liveLink !== "#" && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className={`flex items-center gap-1 font-medium ${
+                          isDarkMode
+                            ? "text-white hover:text-purple-400"
+                            : "text-gray-800 hover:text-purple-600"
+                        }`}
+                      >
+                        Live Demo <FiArrowUpRight size={13} />
+                      </a>
+                    )}
+                    {project.githubClient && project.githubClient !== "#" && (
+                      <a
+                        href={project.githubClient}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className={`flex items-center gap-1 font-medium ${
+                          isDarkMode
+                            ? "text-white hover:text-purple-400"
+                            : "text-gray-800 hover:text-purple-600"
+                        }`}
+                      >
+                        GitHub <FiArrowUpRight size={13} />
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setSelected(project)}
+                      className="ml-auto px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300"
+                    >
+                      Case Study
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
       </motion.div>
+
       {/* ===== MODAL ===== */}
       <AnimatePresence>
         {selected && (
@@ -636,7 +790,7 @@ const Projects = () => {
                               : "bg-purple-600 text-white"
                           }`}
                         >
-                          ✓
+                          OK
                         </span>
                         <span
                           className={
@@ -661,7 +815,7 @@ const Projects = () => {
                       isDarkMode ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    Interested in this project? Let's discuss!
+                    Interested in this project? Let&apos;s discuss!
                   </h4>
 
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -726,7 +880,9 @@ const Projects = () => {
                     <div>
                       <textarea
                         rows="4"
-                        placeholder={`Tell me about your interest in ${selected.title}...`}
+                        placeholder={
+                          "Tell me about your interest in " + selected.title + "..."
+                        }
                         className={`
                           w-full rounded-lg border px-4 py-3 text-sm resize-none
                           focus:outline-none focus:ring-2 focus:ring-purple-500

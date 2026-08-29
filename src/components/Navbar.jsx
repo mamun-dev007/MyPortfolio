@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
+import useActiveSection from "../hook/useActiveSection";
 
+const sectionIds = [
+  "home",
+  "about",
+  "skills",
+  "service",
+  "project",
+  "experience",
+  "blog",
+  "contact",
+];
 const Navbar = () => {
+  const activeSection = useActiveSection(sectionIds);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  // const [activeSection, setActiveSection] = useState("home");
   // Initialize theme state from localStorage
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -27,7 +40,7 @@ const Navbar = () => {
 
   const handleScroll = (id) => {
     setMenuOpen(false);
-    setActiveSection(id);
+    // setActiveSection(id);
 
     const element = document.getElementById(id);
     if (element) {
@@ -45,9 +58,7 @@ const Navbar = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("home")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800 "
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "home" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -59,9 +70,7 @@ const Navbar = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("about")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800 "
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "about" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -72,25 +81,9 @@ const Navbar = () => {
       <motion.a
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => handleScroll("service")}
-        className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
-        } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
-          activeSection === "service" ? "bg-purple-600/80 text-white" : ""
-        }`}
-      >
-        Service
-      </motion.a>
-      <motion.a
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("skills")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800"
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "skills" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -103,9 +96,7 @@ const Navbar = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("project")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800 "
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "project" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -115,11 +106,33 @@ const Navbar = () => {
       <motion.a
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        onClick={() => handleScroll("experience")}
+        className={`${
+          isDarkMode ? "text-white " : "text-gray-800 "
+        } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
+          activeSection === "experience" ? "bg-purple-600/80 text-white" : ""
+        }`}
+      >
+        Experience
+      </motion.a>
+      <motion.a
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => handleScroll("service")}
+        className={`${
+          isDarkMode ? "text-white " : "text-gray-800 "
+        } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
+          activeSection === "service" ? "bg-purple-600/80 text-white" : ""
+        }`}
+      >
+        Service
+      </motion.a>
+      <motion.a
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("blog")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800 "
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "blog" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -131,9 +144,7 @@ const Navbar = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => handleScroll("contact")}
         className={`${
-          isDarkMode
-            ? "text-white hover:text-purple-400"
-            : "text-gray-800 hover:text-purple-600"
+          isDarkMode ? "text-white " : "text-gray-800 "
         } text-inter transition cursor-pointer px-2 py-1 rounded-lg ${
           activeSection === "contact" ? "bg-purple-600/80 text-white" : ""
         }`}
@@ -144,12 +155,12 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleWindowScroll = () => {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleWindowScroll);
+    return () => window.removeEventListener("scroll", handleWindowScroll);
   }, []);
 
   return (
@@ -184,12 +195,14 @@ const Navbar = () => {
             }}
             className="flex items-center gap-3"
           >
+            {/* ------- logo ------ */}
             <div className="w-12 h-12  rounded-full flex items-center justify-center">
               <a
                 onClick={() => handleScroll("home")}
                 className="text-2xl font-bold text-purple-600 flex justify-center items-center gap-1 cursor-pointer"
               >
-                <img src="/logo.png" alt="" className="w-10" />
+                <img src="/logo.png" alt="Mamun's photo " className="w-10" />
+                {/* <p className="text-xs text-green-600 pt-10">MAMUN</p> */}
               </a>
             </div>
             <span
@@ -225,7 +238,7 @@ const Navbar = () => {
               onClick={toggleTheme}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className={`p-2 rounded-full border-2 transition-all duration-300 ${
+              className={`p-2 md:mr-5 sm:mr-0 rounded-full border-2 transition-all duration-300 ${
                 isDarkMode
                   ? "border-purple-500/60 text-purple-400 hover:bg-purple-600/20 hover:text-purple-300 hover:border-purple-500"
                   : "border-purple-600/60 text-purple-600 hover:bg-purple-100 hover:text-purple-700 hover:border-purple-600"
@@ -245,7 +258,7 @@ const Navbar = () => {
               onClick={() => handleScroll("contact")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
+              className={`md:hidden px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 ${
                 isDarkMode
                   ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
                   : "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
@@ -296,6 +309,7 @@ const Navbar = () => {
                   { id: "service", label: "Services" },
                   { id: "skills", label: "Skills" },
                   { id: "project", label: "Projects" },
+                  { id: "experience", label: "Experience" },
                   { id: "blog", label: "Blog" },
                   { id: "contact", label: "Contact" },
                 ].map((item, index) => (
@@ -315,9 +329,13 @@ const Navbar = () => {
                           ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25"
                           : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25"
                         : isDarkMode
-                        ? "bg-gray-800/50 text-gray-300 hover:bg-gradient-to-r from-purple-600 to-pink-600  border border-gray-700 hover:text-white"
-                        : "bg-white text-gray-600 hover:bg-gradient-to-r from-purple-600 to-pink-600 hover:text-white border border-gray-400"
-                    }`}ext-grover:tadow-sm h sher-gray-200rdder boor
+                          ? "bg-gray-800/50 text-gray-300 hover:bg-gradient-to-r from-purple-600 to-pink-600  border border-gray-700 hover:text-white"
+                          : "bg-white text-gray-600 hover:bg-gradient-to-r from-purple-600 to-pink-600 hover:text-white border border-gray-400"
+                    }`}
+                    ext-grover:tadow-sm
+                    h
+                    sher-gray-200rdder
+                    boor
                   >
                     {item.label}
                   </motion.a>

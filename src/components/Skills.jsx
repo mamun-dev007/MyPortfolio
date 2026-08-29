@@ -12,7 +12,16 @@ import {
 } from "react-icons/fa";
 import { IoLogoFirebase } from "react-icons/io5";
 import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
-import { SiExpress, SiMongodb } from "react-icons/si";
+import {
+  SiAxios,
+  SiDaisyui,
+  SiExpress,
+  SiMongodb,
+  SiVitess,
+} from "react-icons/si";
+import { PiFileSql } from "react-icons/pi";
+
+import { AiOutlineApi } from "react-icons/ai";
 import { FiX } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -54,7 +63,7 @@ const skills = [
   {
     name: "JavaScript",
     percentage: 85,
-    icon: <FaJs className="text-yellow-400" />,
+    icon: <FaJs className="text-purple-500 rounded-2xl" />,
     category: "Frontend",
     description: "Modern ES6+ JavaScript for dynamic web applications",
   },
@@ -68,7 +77,14 @@ const skills = [
   {
     name: "Next.js",
     percentage: 78,
-    icon: <RiNextjsFill className="text-white" />,
+    icon: <RiNextjsFill className="" />,
+    category: "Frontend",
+    description: "Full-stack React framework for production applications",
+  },
+  {
+    name: "Daisy Ui",
+    percentage: 78,
+    icon: <SiDaisyui ill className="" />,
     category: "Frontend",
     description: "Full-stack React framework for production applications",
   },
@@ -82,7 +98,7 @@ const skills = [
   {
     name: "Express.js",
     percentage: 80,
-    icon: <SiExpress className="text-gray-300" />,
+    icon: <SiExpress className="" />,
     category: "Backend",
     description: "Fast and minimalist web framework for Node.js",
   },
@@ -90,7 +106,14 @@ const skills = [
     name: "MongoDB",
     percentage: 75,
     icon: <SiMongodb className="text-green-400" />,
-    category: "Database",
+    category: "Backend",
+    description: "NoSQL database for modern web applications",
+  },
+  {
+    name: "REST Api",
+    percentage: 75,
+    icon: <AiOutlineApi className="text-green-400" />,
+    category: "Backend",
     description: "NoSQL database for modern web applications",
   },
   {
@@ -99,6 +122,20 @@ const skills = [
     icon: <FaHtml5 className="text-orange-500" />,
     category: "Frontend",
     description: "Semantic markup language for web structure",
+  },
+  {
+    name: "NoSQL",
+    percentage: 90,
+    icon: <PiFileSql className="text-blue-500" />,
+    category: "Database",
+    description: "Modern styling with animations and responsive design",
+  },
+  {
+    name: "SQL",
+    percentage: 90,
+    icon: <PiFileSql className="text-blue-500" />,
+    category: "Database",
+    description: "Modern styling with animations and responsive design",
   },
   {
     name: "CSS3",
@@ -131,10 +168,25 @@ const skills = [
   {
     name: "GitHub",
     percentage: 88,
-    icon: <FaGithub className="text-gray-800 dark:text-white" />,
+    icon: <FaGithub className="" />,
     category: "Tools",
     description: "Code hosting platform for collaboration and deployment",
   },
+  {
+    name: "Vite",
+    percentage: 88,
+    icon: <SiVitess className="" />,
+    category: "Tools",
+    description: "Code hosting platform for collaboration and deployment",
+  },
+  {
+    name: "AXIOS",
+    percentage: 28,
+    icon: <SiAxios className="" />,
+    category: "Tools",
+    description: "de hosting platform for collaboration and deployment",
+  },
+
   {
     name: "Figma",
     percentage: 75,
@@ -145,26 +197,26 @@ const skills = [
 ];
 
 const cardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: 1.0,
-      duration: 1.5,
+      delay: 0.5,
+      duration: 0.5,
       ease: "easeOut",
     },
   },
 };
 
-const progressVariant = {
-  hidden: { scaleX: 0 },
-  show: (percentage) => ({
-    scaleX: percentage / 100,
-    transition: { duration: 1.2, ease: "easeOut" },
-  }),
-};
+// const progressVariant = {
+//   hidden: { scaleX: 0 },
+//   show: (percentage) => ({
+//     scaleX: percentage / 100,
+//     transition: { duration: 1.2, ease: "easeOut" },
+//   }),
+// };
 
 const Skills = () => {
   const ref = useRef(null);
@@ -173,12 +225,12 @@ const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedSkill, setSelectedSkill] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   formState: { errors, isSubmitting },
+  // } = useForm();
 
   const categories = [
     "All",
@@ -239,11 +291,17 @@ const Skills = () => {
           }}
           className="text-center mb-16"
         >
-          <h2 className="tage text-4xl md:text-5xl font-bold">
+          <h2 className="tage text-sm md:text-sm font-bold">
             <span className=" bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              My Skills
+              Skills
             </span>
           </h2>
+          <h2 className="tage text-2xl md:text-2xl font-bold">
+            <span className=" bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent text-gray-400">
+              Tools I reach for
+            </span>
+          </h2>
+
           <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
             Modern technologies and tools I use to build high-quality web
             experiences.
@@ -270,8 +328,8 @@ const Skills = () => {
                       ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50"
                       : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                     : isDarkMode
-                    ? "bg-gray-800/50 text-gray-300 hover:bg-gray-700/70 border border-gray-700"
-                    : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
+                      ? "bg-gray-800/50 text-gray-300 hover:bg-gray-700/70 border border-gray-700"
+                      : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm"
                 }
               `}
             >
@@ -283,7 +341,7 @@ const Skills = () => {
         {/* ===== SKILLS GRID ===== */}
         <motion.div
           animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6"
         >
           {filteredSkills.map((skill) => (
             <motion.div
@@ -292,68 +350,27 @@ const Skills = () => {
               whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
               variants={cardVariant}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ scale: 1.0 }}
               whileTap={{ scale: 0.98 }}
               className="group"
             >
               <div
                 onClick={() => setSelectedSkill(skill)}
                 className={`
-                  relative rounded-2xl p-6 h-full cursor-pointer
-                  backdrop-blur border transition-all duration-500
-                  ${
-                    isDarkMode
-                      ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700/70 hover:border-purple-500/50"
-                      : "bg-white border-gray-200 hover:bg-gray-50 hover:border-purple-300/50 shadow-sm hover:shadow-lg"
-                  }
-                  hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]
-                `}
+          relative rounded-xl sm:rounded-2xl p-3 sm:p-5 md:p-6 h-full cursor-pointer
+          backdrop-blur border transition-all duration-500
+          ${
+            isDarkMode
+              ? "bg-gray-800/50 border-gray-700 hover:bg-gray-700/70 hover:border-purple-500/50"
+              : "bg-white border-gray-200 hover:bg-gray-50 hover:border-purple-300/50 shadow-sm hover:shadow-lg"
+          }
+          hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]
+        `}
               >
-                {/* Hover gradient overlay */}
-                <div
-                  className={`
-                    absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 
-                    transition duration-500
-                    ${
-                      isDarkMode
-                        ? "bg-gradient-to-br from-purple-600/20 to-pink-500/20"
-                        : "bg-gradient-to-br from-purple-50 to-pink-50"
-                    }
-                  `}
-                />
-
-                {/* Category Badge */}
-                <div className="relative z-10 flex justify-between items-start mb-4">
-                  <span
-                    className={`
-                      px-3 py-1 rounded-full text-xs font-medium
-                      ${
-                        isDarkMode
-                          ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                          : "bg-purple-100 text-purple-600 border border-purple-200"
-                      }
-                    `}
-                  >
-                    {skill.category}
-                  </span>
-                  <span
-                    className={`
-                      text-sm font-semibold
-                      ${
-                        isDarkMode
-                          ? "text-purple-400 group-hover:text-purple-300"
-                          : "text-purple-600 group-hover:text-purple-700"
-                      }
-                    `}
-                  >
-                    {skill.percentage}%
-                  </span>
-                </div>
-
                 {/* Icon */}
                 <motion.div
-                  className="relative z-10 flex justify-center text-4xl mb-4"
-                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  className="relative z-10 flex justify-center text-xl sm:text-2xl mb-2 sm:mb-4"
+                  whileHover={{ scale: 1.1 }}
                 >
                   {skill.icon}
                 </motion.div>
@@ -361,48 +378,16 @@ const Skills = () => {
                 {/* Skill Name */}
                 <h3
                   className={`
-                    relative z-10 text-xl font-bold text-center mb-3
-                    ${
-                      isDarkMode
-                        ? "text-white group-hover:text-white"
-                        : "text-gray-800 group-hover:text-gray-900"
-                    }
-                  `}
+            relative z-10 text-sm sm:text-lg md:text-xl font-bold text-center mb-1 sm:mb-3
+            ${
+              isDarkMode
+                ? "text-white group-hover:text-white"
+                : "text-gray-800 group-hover:text-gray-900"
+            }
+          `}
                 >
                   {skill.name}
                 </h3>
-
-                {/* Description */}
-                <p
-                  className={`
-                    relative z-10 text-sm text-center leading-relaxed mb-4
-                    ${
-                      isDarkMode
-                        ? "text-gray-400 group-hover:text-gray-300"
-                        : "text-gray-600 group-hover:text-gray-700"
-                    }
-                  `}
-                >
-                  {skill.description}
-                </p>
-
-                {/* Progress Bar */}
-                <div className="relative z-10">
-                  <div
-                    className={`
-                      w-full h-2 rounded-full overflow-hidden
-                      ${isDarkMode ? "bg-gray-700" : "bg-gray-200"}
-                    `}
-                  >
-                    <motion.div
-                      custom={skill.percentage}
-                      variants={progressVariant}
-                      initial="hidden"
-                      animate={isInView ? "show" : "hidden"}
-                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 origin-left"
-                    />
-                  </div>
-                </div>
               </div>
             </motion.div>
           ))}
@@ -410,11 +395,11 @@ const Skills = () => {
       </div>
 
       {/* ===== MODAL ===== */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {selectedSkill && (
           <>
             {/* Overlay */}
-            <motion.div
+      {/* <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -422,10 +407,10 @@ const Skills = () => {
                 isDarkMode ? "bg-black/70" : "bg-gray-900/50"
               }`}
               onClick={() => setSelectedSkill(null)}
-            />
+            /> */}
 
-            {/* Modal */}
-            <motion.div
+      {/* Modal */}
+      {/* <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.5, y: 40 }}
@@ -442,9 +427,9 @@ const Skills = () => {
                     : "bg-white border border-gray-200 shadow-2xl"
                 }
               `}
-            >
-              {/* Close Button */}
-              <button
+            > */}
+      {/* Close Button */}
+      {/* <button
                 onClick={() => setSelectedSkill(null)}
                 className={`absolute top-4 right-4 z-10 p-2 rounded-full transition-colors ${
                   isDarkMode
@@ -453,10 +438,10 @@ const Skills = () => {
                 }`}
               >
                 <FiX className="w-6 h-6" />
-              </button>
+              </button> */}
 
-              {/* Skill Header */}
-              <div className="text-center mb-8">
+      {/* Skill Header */}
+      {/* <div className="text-center mb-8">
                 <div className="flex justify-center text-6xl mb-4">
                   {selectedSkill.icon}
                 </div>
@@ -487,10 +472,10 @@ const Skills = () => {
                   isDarkMode ? "text-gray-300" : "text-gray-600"
                 }`}>
                   {selectedSkill.description}
-                </p>
+                </p> */}
 
-                {/* Progress Bar */}
-                <div className="mt-6">
+      {/* Progress Bar */}
+      {/* <div className="mt-6">
                   <div className={`w-full h-3 rounded-full overflow-hidden ${
                     isDarkMode ? "bg-gray-700" : "bg-gray-200"
                   }`}>
@@ -502,10 +487,10 @@ const Skills = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              {/* Contact Form */}
-              <div className={`border-t pt-6 ${
+      {/* Contact Form */}
+      {/* <div className={`border-t pt-6 ${
                 isDarkMode ? "border-gray-700" : "border-gray-200"
               }`}>
                 <h4 className={`font-semibold mb-4 text-center ${
@@ -514,9 +499,9 @@ const Skills = () => {
                   Interested in working with {selectedSkill.name}? Let's discuss!
                 </h4>
                 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                  {/* Name and Email Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4"> */}
+      {/* Name and Email Row */}
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <input
                         type="text"
@@ -568,10 +553,10 @@ const Skills = () => {
                         </p>
                       )}
                     </div>
-                  </div>
+                  </div> */}
 
-                  {/* Message */}
-                  <div>
+      {/* Message */}
+      {/* <div>
                     <textarea
                       rows="4"
                       placeholder={`Tell me about your project involving ${selectedSkill.name}...`}
@@ -598,10 +583,10 @@ const Skills = () => {
                         {errors.message.message}
                       </p>
                     )}
-                  </div>
+                  </div> */}
 
-                  {/* Submit Button */}
-                  <motion.button
+      {/* Submit Button */}
+      {/* <motion.button
                     type="submit"
                     disabled={isSubmitting}
                     whileTap={{ scale: 0.96 }}
@@ -622,7 +607,7 @@ const Skills = () => {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </section>
   );
 };

@@ -49,13 +49,43 @@ const experienceData = [
   {
     id: 1,
     type: "Experience",
-    year: "2025 - Present",
-    title: "Full Stack Web Developer",
+    year: "2026 - Present",
+    title: "AI Driven Web Developer",
     place: "Programming Hero",
     category: "Experience",
     status: "Current",
     description:
-      "Intensive full-stack web development program focusing on modern JavaScript frameworks, backend technologies, and industry best practices.",
+      "Intensive AI Driven web development program focusing on modern JavaScript frameworks, backend technologies, and industry best practices.",
+    skills: [
+      "Python",
+      "Authentication & Security",
+      "AI-Assisted Coding Mastery",
+      "Engineering Skills You'll Master",
+      "MongoDB",
+      "Express.js",
+      "Next.js",
+      "TypeScript",
+    ],
+    achievements: [
+      "Completed 50+ hands-on projects",
+      "Mastered MERN stack development",
+      "Built responsive web applications",
+      "Learned modern development workflows",
+      "Collaborated on team projects",
+    ],
+    website: "https://www.programming-hero.com/",
+    icon: <HiOutlineBriefcase className="text-blue-500" />,
+  },
+  {
+    id: 2,
+    type: "Experience",
+    year: "2025 - 2026",
+    title: "MERN Stack Web Developer",
+    place: "Programming Hero",
+    category: "Experience",
+    status: "Completed",
+    description:
+      "Intensive MERN-stack web development program focusing on modern JavaScript frameworks, backend technologies, and industry best practices.",
     skills: [
       "React",
       "Node.js",
@@ -75,7 +105,7 @@ const experienceData = [
     icon: <HiOutlineBriefcase className="text-blue-500" />,
   },
   {
-    id: 2,
+    id: 3,
     type: "Experience",
     year: "2023 - 2025",
     title: "Self-Taught Developer",
@@ -103,7 +133,7 @@ const experienceData = [
     icon: <HiOutlineBriefcase className="text-green-500" />,
   },
   {
-    id: 3,
+    id: 4,
     type: "Experience",
     year: "2020 - 2021",
     title: "Web Design Fundamentals",
@@ -124,7 +154,7 @@ const experienceData = [
     icon: <HiOutlineBriefcase className="text-purple-500" />,
   },
   {
-    id: 4,
+    id: 5,
     type: "Education",
     year: "2020 - 2025",
     title: "Bachelor's Degree (Honours)",
@@ -150,7 +180,7 @@ const experienceData = [
     icon: <HiOutlineAcademicCap className="text-indigo-500" />,
   },
   {
-    id: 5,
+    id: 6,
     type: "Education",
     year: "2018 - 2020",
     title: "Higher Secondary Certificate (HSC)",
@@ -171,7 +201,7 @@ const experienceData = [
     icon: <HiOutlineAcademicCap className="text-cyan-500" />,
   },
   {
-    id: 6,
+    id: 7,
     type: "Certifications",
     year: "2024",
     title: "React Developer Certification",
@@ -193,7 +223,7 @@ const experienceData = [
     icon: <FiAward className="text-blue-600" />,
   },
   {
-    id: 7,
+    id: 8,
     type: "Certifications",
     year: "2023",
     title: "JavaScript Algorithms Certification",
@@ -217,23 +247,23 @@ const experienceData = [
 
 /* ===== FRAMER MOTION VARIANTS ===== */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { delay: 1.0, duration: 1.5, ease: "easeOut" },
+    transition: { delay: 0.5, duration: 0.5, ease: "easeOut" },
   },
 };
 
 const cardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 20, scale: 1.0 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: 1.0,
-      duration: 1.5,
+      delay: 0.2,
+      duration: 0.5,
       ease: "easeOut",
     },
   },
@@ -299,7 +329,7 @@ const Experience = () => {
           variants={fadeUp}
           className="text-center mb-16"
         >
-          <h2 className="tage text-4xl md:text-5xl font-bold">
+          <h2 className="tage text-md  font-bold">
             <span
               className={`bg-gradient-to-r bg-clip-text text-transparent ${
                 isDarkMode
@@ -308,6 +338,17 @@ const Experience = () => {
               }`}
             >
               My Journey
+            </span>
+          </h2>
+          <h2 className="tage text-4xl font-bold">
+            <span
+              className={`bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode
+                  ? "from-purple-400 to-pink-400"
+                  : "from-purple-600 to-pink-600"
+              }`}
+            >
+              Where the time went
             </span>
           </h2>
           <p
@@ -340,8 +381,8 @@ const Experience = () => {
                         ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/50"
                         : "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/50"
                       : isDarkMode
-                      ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
-                      : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                        ? "text-gray-300 hover:text-white hover:bg-gray-700/50"
+                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                   }`}
                 >
                   {cat}
@@ -387,12 +428,12 @@ const Experience = () => {
                               ? "bg-green-500/20 text-green-300 border border-green-500/30"
                               : "bg-green-100 text-green-600 border border-green-200"
                             : item.status === "Certified"
-                            ? isDarkMode
-                              ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                              : "bg-blue-100 text-blue-600 border border-blue-200"
-                            : isDarkMode
-                            ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                            : "bg-purple-100 text-purple-600 border border-purple-200"
+                              ? isDarkMode
+                                ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                : "bg-blue-100 text-blue-600 border border-blue-200"
+                              : isDarkMode
+                                ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                                : "bg-purple-100 text-purple-600 border border-purple-200"
                         }`}
                       >
                         {item.status}
@@ -539,12 +580,12 @@ const Experience = () => {
                               ? "bg-green-500/20 text-green-300 border border-green-500/30"
                               : "bg-green-100 text-green-600 border border-green-200"
                             : selected.status === "Certified"
-                            ? isDarkMode
-                              ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                              : "bg-blue-100 text-blue-600 border border-blue-200"
-                            : isDarkMode
-                            ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                            : "bg-purple-100 text-purple-600 border border-purple-200"
+                              ? isDarkMode
+                                ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                : "bg-blue-100 text-blue-600 border border-blue-200"
+                              : isDarkMode
+                                ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                                : "bg-purple-100 text-purple-600 border border-purple-200"
                         }`}
                       >
                         {selected.status}

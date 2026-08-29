@@ -15,10 +15,10 @@ const Home = () => {
         <div className=''>
             <Banner></Banner>
             <About></About>
-            <MyQuality></MyQuality>
             <Skills></Skills>
             <RecentWork></RecentWork>
             <Experience></Experience>
+            <MyQuality></MyQuality>
             <Blogs></Blogs>
             <Contact></Contact>
             {/* <Loading></Loading> */}

@@ -155,6 +155,27 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* LEFT – FORM */}
+<motion.div variants={fadeRight} className="space-y-6 sm:space-y-8">
+            <ContactItem
+              icon={<FiPhone />}
+              title="Phone"
+              value="+880 1602500633"
+              isDarkMode={isDarkMode}
+            />
+            <ContactItem
+              icon={<FiMail />}
+              title="Email"
+              value="mamunmiahridoy@gmail.com"
+              isDarkMode={isDarkMode}
+            />
+            <ContactItem
+              icon={<FiMapPin />}
+              title="Address"
+              value="Dhaka, Bangladesh"
+              isDarkMode={isDarkMode}
+            />
+          </motion.div>
+          
           <motion.div
             variants={fadeLeft}
             className={`
@@ -312,26 +333,7 @@ const Contact = () => {
           </motion.div>
 
           {/* RIGHT – INFO */}
-          <motion.div variants={fadeRight} className="space-y-6 sm:space-y-8">
-            <ContactItem
-              icon={<FiPhone />}
-              title="Phone"
-              value="+880 1602500633"
-              isDarkMode={isDarkMode}
-            />
-            <ContactItem
-              icon={<FiMail />}
-              title="Email"
-              value="mamunmiahridoy@gmail.com"
-              isDarkMode={isDarkMode}
-            />
-            <ContactItem
-              icon={<FiMapPin />}
-              title="Address"
-              value="Dhaka, Bangladesh"
-              isDarkMode={isDarkMode}
-            />
-          </motion.div>
+          
         </div>
       </motion.div>
     </section>

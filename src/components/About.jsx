@@ -48,24 +48,24 @@ const fadeUp = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { delay: 1.0, duration: 1.9, ease: "easeOut" },
+    transition: { delay: 0.1, duration: 1.0, ease: "easeOut" },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0 },
   show: {
     opacity: 1,
-    scale: 1,
-    transition: { delay: 1.0, duration: 1.9, ease: "easeOut" },
+    scale: 0,
+    transition: { delay: 0.3, duration: 1.0, ease: "easeOut" },
   },
 };
 
 const techStack = [
   { name: "React.js", icon: <FaReact />, color: "text-cyan-400" },
-  { name: "Next.js", icon: <SiNextdotjs />, color: "text-white" },
+  { name: "Next.js", icon: <SiNextdotjs />, color: "" },
   { name: "Node.js", icon: <FaNodeJs />, color: "text-green-500" },
-  { name: "Express.js", icon: <SiExpress />, color: "text-gray-300" },
+  { name: "Express.js", icon: <SiExpress />, color: "" },
   { name: "MongoDB", icon: <SiMongodb />, color: "text-green-400" },
   { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "text-sky-400" },
   { name: "Firebase", icon: <SiFirebase />, color: "text-amber-400" },
@@ -89,7 +89,7 @@ const About = () => {
         variants={fadeUp}
         className="text-center mb-16"
       >
-        <h2 className="tage text-4xl md:text-5xl font-bold">
+        <h2 className="tage text-sm md:text-sm font-bold">
           <span
             className={`bg-gradient-to-r bg-clip-text text-transparent ${
               isDarkMode
@@ -98,6 +98,17 @@ const About = () => {
             }`}
           >
             About Me
+          </span>
+        </h2>
+        <h2>
+          <span
+            className={`bg-gradient-to-r bg-clip-text text-transparent text-2xl ${
+              isDarkMode
+                ? "from-purple-400 to-pink-400"
+                : "from-purple-600 to-pink-600"
+            }`}
+          >
+            Turning ideas into real digital products
           </span>
         </h2>
       </motion.div>
@@ -145,7 +156,7 @@ const About = () => {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
             variants={fadeUp}
-            className={`text-4xl md:text-5xl font-bold mb-6 ${
+            className={`text-4xl md:text-xl font-bold  ${
               isDarkMode ? "text-white" : "text-gray-800"
             }`}
           >
@@ -208,14 +219,14 @@ const About = () => {
                 key={i}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.1 }}
                 variants={fadeUp}
-                whileHover={{ scale: 1.1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-full border-2 text-sm backdrop-blur justify-center transition shadow-2xl ${
+                whileHover={{ scale: 1.0, y: 0 }}
+                transition={{ duration: 0.1 }}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-full border-2 text-sm backdrop-blur justify-center transition shadow-2xl ring-1 ring-purple-500 ${
                   isDarkMode
-                    ? "bg-white/5 border-purple-500/60 text-purple-400 hover:bg-purple-600 hover:text-white shadow-purple-500/50 hover:shadow-purple-500/80 hover:shadow-[0_0_50px_rgba(168,85,247,1)]"
-                    : "bg-purple-50/80 border-purple-300/60 text-purple-600 hover:bg-purple-600 hover:text-white shadow-purple-300/50 hover:shadow-purple-500/80"
+                    ? "bg-white/5 border-purple-500/60 text-purple-400  shadow-purple-500/50 "
+                    : "bg-purple-50/80  shadow-purple-300/50 "
                 }`}
               >
                 <span className={`text-lg ${tech.color}`}>{tech.icon}</span>
@@ -257,7 +268,7 @@ const About = () => {
             <motion.div
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.1 }}
               variants={fadeUp}
             >
               <StatCard
@@ -278,7 +289,7 @@ const StatCard = ({ icon, value, label, isDarkMode }) => {
   return (
     <motion.div
       variants={fadeUp}
-      whileHover={{ y: -6, scale: 1.05 }}
+      whileHover={{ y: -6, scale: 1.0 }}
       className={`rounded-2xl border py-6 text-center backdrop-blur h-44 ${
         isDarkMode
           ? "bg-white/5 border-purple-500/50"
